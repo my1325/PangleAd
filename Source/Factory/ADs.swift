@@ -12,21 +12,25 @@ public extension TaskFactoryCategory {
     static let `default` = "com.pangle.ad.default.task.factory"
     static let express = "com.pangle.ad.express.task.factory"
 }
-
-public extension ADCategory {
+ 
+extension ADCategory {
     static let splash = "com.pangle.ad.splash.category"
     static let rewardVideo = "com.pangle.ad.rewardVideo.category"
     static let feed = "com.pangle.ad.feed.category"
     static let interstitial = "com.pangle.ad.interstitial.category"
     static let fullScreen = "com.pangle.ad.fullScreen.category"
+    static let banner = "com.pangle.ad.banner.category"
+}
+
+public enum ImageSize: Int {
+    case feed228_150 = 9
+    case feed690_388 = 10
 }
 
 public enum DefaultADs {
     case splash(method: LoadMethod, slotId: String, frame: CGRect, tolerateTimeout: Double?, hideSkipButton: Bool?)
     case rewardVideo(method: LoadMethod, slotId: String, userId: String, rewardName: String?, rewardAmount: Int?, extra: String?)
-    case feed(method: LoadMethod, slotId: String, imageSize: Int, count: Int = 1)
-    case interstitial(method: LoadMethod, slotId: String, width: Double, height: Double)
-    case fullScreen(method: LoadMethod, slotId: String)
+    case feed(method: LoadMethod, slotId: String, imageSize: ImageSize, count: Int = 1)
 }
 
 extension DefaultADs: ADCompatble {
@@ -36,7 +40,7 @@ extension DefaultADs: ADCompatble {
     
     public var method: LoadMethod {
         switch self {
-        case let .splash(method, _, _, _, _), let .feed(method, _, _, _), let .fullScreen(method, _), let .interstitial(method, _, _, _), let .rewardVideo(method, _, _, _, _, _):
+        case let .splash(method, _, _, _, _), let .feed(method, _, _, _), let .rewardVideo(method, _, _, _, _, _):
             return method
         }
     }
@@ -49,20 +53,16 @@ extension DefaultADs: ADCompatble {
             return .rewardVideo
         case .feed:
             return .feed
-        case .interstitial:
-            return .interstitial
-        case .fullScreen:
-            return .fullScreen
         }
     }
 }
 
 public enum ExpressADs {
-    case splash(method: LoadMethod, slotId: String, width: Double, height: Double, tolerateTimeout: Double?, hideSkipButton: Bool?)
     case rewardVideo(method: LoadMethod, slotId: String, userId: String, rewardName: String?, rewardAmount: Int?, extra: String?)
-    case feed(method: LoadMethod, slotId: String, imageSize: Int, count: Int = 1, width: Double, height: Double)
+    case feed(method: LoadMethod, slotId: String, imageSize: ImageSize, count: Int = 1, width: Double, height: Double)
     case interstitial(method: LoadMethod, slotId: String, width: Double, height: Double)
     case fullScreen(method: LoadMethod, slotId: String)
+    case banner(method: LoadMethod, slotId: String, interval: Int?, width: Double, height: Double, vc: UIViewController)
 }
 
 extension ExpressADs: ADCompatble {
@@ -72,15 +72,13 @@ extension ExpressADs: ADCompatble {
     
     public var method: LoadMethod {
         switch self {
-        case let .splash(method, _, _, _, _, _), let .feed(method, _, _, _, _, _), let .fullScreen(method, _), let .interstitial(method, _, _, _), let .rewardVideo(method, _, _, _, _, _):
+        case let .feed(method, _, _, _, _, _), let .fullScreen(method, _), let .interstitial(method, _, _, _), let .rewardVideo(method, _, _, _, _, _), let .banner(method, _, _, _, _, _):
             return method
         }
     }
     
     public var category: ADCategory {
         switch self {
-        case .splash:
-            return .splash
         case .rewardVideo:
             return .rewardVideo
         case .feed:
@@ -89,6 +87,8 @@ extension ExpressADs: ADCompatble {
             return .interstitial
         case .fullScreen:
             return .fullScreen
+        case .banner:
+            return .banner
         }
     }
 }

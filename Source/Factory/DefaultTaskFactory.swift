@@ -17,11 +17,7 @@ public final class DefaultTaskFactory: TaskFactory {
         case let .rewardVideo(_, slotId, userId, rewardName, rewardAmount, extra):
             return RewardVideoADTask(slotId, userId: userId, rewardName: rewardName, rewardAmount: rewardAmount, extra: extra, ad: _ad)
         case let .feed(_, slotId, imageSize, count):
-            return NativeADTask(slotId, imageSize: imageSize, count: count, ad: _ad)
-        case .interstitial(_, _, _, _):
-            return NoneTask()
-        case let .fullScreen(_, slotId):
-            return FullScreenAdTask(slotId: slotId, ad: _ad)
+            return NativeADTask(slotId, imageSize: imageSize.rawValue, count: count, ad: _ad)
         }
     }
 }

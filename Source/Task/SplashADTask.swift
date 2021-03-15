@@ -80,9 +80,9 @@ public final class ExpressSplashADTask: NSObject, TaskCompatible {
     
     private weak var delegate: TaskReumeResultDelegate?
     
-    init(_ slotId: String, width: Double, height: Double, tolerateTimeout: Double?, hideSkipButton: Bool?, ad: ADCompatble) {
+    init(_ slotId: String, width: Double, height: Double, tolerateTimeout: Double?, hideSkipButton: Bool?, vc: UIViewController, ad: ADCompatble) {
         let adSize = CGSize(width: width, height: height)
-        let splashView = BUNativeExpressSplashView(slotID: slotId, adSize: adSize, rootViewController: UIViewController())
+        let splashView = BUNativeExpressSplashView(slotID: slotId, adSize: adSize, rootViewController: vc)
         if tolerateTimeout != nil {
             splashView.tolerateTimeout = tolerateTimeout!
         }
