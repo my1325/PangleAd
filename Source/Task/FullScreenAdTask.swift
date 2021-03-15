@@ -81,8 +81,7 @@ public final class ExpressFullScreenAdTask: NSObject, TaskCompatible {
     
     private var isSkipped: Bool = false
     
-    init(_ args: [String: Any?], ad: ADCompatble) {
-        let slotId: String = args["slotId"] as! String
+    init(_ slotId: String, ad: ADCompatble) {
         let _ad = BUNativeExpressFullscreenVideoAd(slotID: slotId)
         self.identifier = String(format: "%d", Unmanaged.passUnretained(_ad).toOpaque().hashValue)
         self._ad = _ad

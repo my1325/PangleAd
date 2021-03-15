@@ -22,12 +22,7 @@ public final class RewardVideoADTask: NSObject, TaskCompatible {
     
     private var verify: Bool = false
     
-    init(_ args: [String: Any?], ad: ADCompatble) {
-        let slotId: String = args["slotId"] as! String
-        let userId: String = args["userId"] as? String ?? ""
-        let rewardName: String? = args["rewardName"] as? String
-        let rewardAmount: Int? = args["rewardAmount"] as? Int
-        let extra: String? = args["extra"] as? String
+    init(_ slotId: String, userId: String, rewardName: String?, rewardAmount: Int?, extra: String?, ad: ADCompatble) {
         let model = BURewardedVideoModel()
         model.userId = userId
         if rewardName != nil {
@@ -104,14 +99,8 @@ public final class ExpressRewardVideoADTask: NSObject, TaskCompatible {
     
     private var verify: Bool = false
     
-    init(_ args: [String: Any?], ad: ADCompatble) {
-        let slotId: String = args["slotId"] as! String
-        let userId: String = args["userId"] as? String ?? ""
-        let rewardName: String? = args["rewardName"] as? String
-        let rewardAmount: Int? = args["rewardAmount"] as? Int
-        let extra: String? = args["extra"] as? String
+    init(_ slotId: String, userId: String, rewardName: String?, rewardAmount: Int?, extra: String?, ad: ADCompatble) {
         let model = BURewardedVideoModel()
-        
         model.userId = userId
         if rewardName != nil {
             model.rewardName = rewardName

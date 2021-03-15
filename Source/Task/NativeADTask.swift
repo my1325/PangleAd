@@ -22,17 +22,13 @@ public final class NativeADTask: NSObject, TaskCompatible {
     
     private weak var delegate: TaskReumeResultDelegate?
     
-    init(_ args: [String: Any?], ad: ADCompatble) {
-        let slotId: String = args["slotId"] as! String
-        let imgSize: Int = args["imgSize"] as! Int
-        let count = args["count"] as? Int ?? 1
-        
+    init(_ slotId: String, imageSize: Int, count: Int, ad: ADCompatble) {
         let _ad = BUNativeAdsManager()
         let slot = BUAdSlot()
         slot.id = slotId
         slot.adType = .feed
         slot.position = .feed
-        slot.imgSize = BUSize(by: BUProposalSize(rawValue: imgSize)!)
+        slot.imgSize = BUSize(by: BUProposalSize(rawValue: imageSize)!)
         _ad.adslot = slot
         self.identifier = String(format: "%d", Unmanaged.passUnretained(_ad).toOpaque().hashValue)
         self._count = count
@@ -81,18 +77,8 @@ public final class ExpressNativeADTask: NSObject, TaskCompatible {
     
     private weak var delegate: TaskReumeResultDelegate?
     
-    init(_ args: [String: Any?], ad: ADCompatble) {
-        let slotId: String = args["slotId"] as! String
-        let count = args["count"] as? Int ?? 1
-        
-        let expressArgs = args["expressSize"] as! [String: Double]
-        let width = expressArgs["width"]!
-        let height = expressArgs["height"]!
-        let imgSizeIndex = args["imgSize"] as! Int
-        let imgSize = BUSize(by: BUProposalSize(rawValue: imgSizeIndex)!)!
-        
-//        let width = Double(UIScreen.main.bounds.width)
-//        let height = width / Double(size.width) * Double(size.height)
+    init(_ slotId: String, count: Int, imageSize: Int, width: Double, height: Double, ad: ADCompatble) {
+        let imgSize = BUSize(by: BUProposalSize(rawValue: imageSize)!)!
         let adSize = CGSize(width: width, height: height)
         
         let slot = BUAdSlot()

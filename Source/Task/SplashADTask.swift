@@ -5,14 +5,14 @@
 //  Created by my on 2021/3/12.
 //
 
-import Foundation
 import ADManager
 import BUAdSDK
+import Foundation
 
 public final class SplashADTask: NSObject, TaskCompatible {
     public var identifier: String
     
-    public var isCanceled: Bool = false 
+    public var isCanceled: Bool = false
     
     public var ad: ADCompatble
     
@@ -20,11 +20,7 @@ public final class SplashADTask: NSObject, TaskCompatible {
     
     private weak var delegate: TaskReumeResultDelegate?
     
-    init(_ args: [String: Any?], ad: ADCompatble) {
-        let slotId: String = args["slotId"] as! String
-        let tolerateTimeout: Double? = args["tolerateTimeout"] as? Double
-        let hideSkipButton: Bool? = args["hideSkipButton"] as? Bool
-        let frame = UIScreen.main.bounds
+    init(_ slotId: String, frame: CGRect, tolerateTimeout: Double?, hideSkipButton: Bool?, ad: ADCompatble) {
         let splashView = BUSplashAdView(slotID: slotId, frame: frame)
         if tolerateTimeout != nil {
             splashView.tolerateTimeout = tolerateTimeout!
@@ -40,14 +36,14 @@ public final class SplashADTask: NSObject, TaskCompatible {
     }
     
     public func cancel() {
-        guard !isCanceled else { return }
-        isCanceled = true
+        guard !self.isCanceled else { return }
+        self.isCanceled = true
     }
 
     public func resume(_ delegate: TaskReumeResultDelegate) {
         self.delegate = delegate
         self._ad.loadAdData()
-        self.delegate?.task(self, adDidLoad: _ad)
+        self.delegate?.task(self, adDidLoad: self._ad)
     }
     
     public func retry() -> Bool {
@@ -84,14 +80,7 @@ public final class ExpressSplashADTask: NSObject, TaskCompatible {
     
     private weak var delegate: TaskReumeResultDelegate?
     
-    init(_ args: [String: Any?], ad: ADCompatble) {
-        let slotId: String = args["slotId"] as! String
-        let tolerateTimeout: Double? = args["tolerateTimeout"] as? Double
-        let hideSkipButton: Bool? = args["hideSkipButton"] as? Bool
-
-        let expressArgs = args["expressSize"] as! [String: Double]
-        let width = expressArgs["width"]!
-        let height = expressArgs["height"]!
+    init(_ slotId: String, width: Double, height: Double, tolerateTimeout: Double?, hideSkipButton: Bool?, ad: ADCompatble) {
         let adSize = CGSize(width: width, height: height)
         let splashView = BUNativeExpressSplashView(slotID: slotId, adSize: adSize, rootViewController: UIViewController())
         if tolerateTimeout != nil {
@@ -108,14 +97,14 @@ public final class ExpressSplashADTask: NSObject, TaskCompatible {
     }
     
     public func cancel() {
-        guard !isCanceled else { return }
-        isCanceled = true
+        guard !self.isCanceled else { return }
+        self.isCanceled = true
     }
 
     public func resume(_ delegate: TaskReumeResultDelegate) {
         self.delegate = delegate
         self._ad.loadAdData()
-        self.delegate?.task(self, adDidLoad: _ad)
+        self.delegate?.task(self, adDidLoad: self._ad)
     }
     
     public func retry() -> Bool {
