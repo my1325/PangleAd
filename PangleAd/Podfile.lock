@@ -1,0 +1,38 @@
+PODS:
+  - ADManager (0.0.1)
+  - Ads-CN (3.4.2.8):
+    - Ads-CN/BUAdSDK (= 3.4.2.8)
+  - Ads-CN/BUAdSDK (3.4.2.8):
+    - Ads-CN/BUFoundation
+    - Ads-CN/Domestic
+  - Ads-CN/BUFoundation (3.4.2.8)
+  - Ads-CN/Domestic (3.4.2.8)
+  - PangleAd (0.0.1):
+    - ADManager
+    - PangleAd/cn (= 0.0.1)
+  - PangleAd/cn (0.0.1):
+    - ADManager
+    - Ads-CN (~> 3.4)
+
+DEPENDENCIES:
+  - ADManager (from `../../ADManager`)
+  - PangleAd (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Ads-CN
+
+EXTERNAL SOURCES:
+  ADManager:
+    :path: "../../ADManager"
+  PangleAd:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ADManager: f253b74cdd7aa4d93fb17c4fe92b833a70130074
+  Ads-CN: 5055041248e93cd9b763023d32a12f3690d8b872
+  PangleAd: 825d5f25bda854e32ff72c975177350400eb10ad
+
+PODFILE CHECKSUM: 7a4a5fd43c94f0ca9993c92d546f46fd9fd91178
+
+COCOAPODS: 1.9.1
