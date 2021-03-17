@@ -49,23 +49,31 @@ public final class SplashADTask: NSObject, TaskCompatible {
     public func retry() -> Bool {
         return false
     }
+    
+    deinit {
+        print("----------\(self) deinit--------")
+    }
 }
 
 extension SplashADTask: BUSplashAdDelegate {
     public func splashAdDidClick(_ splashAd: BUSplashAdView) {
-        self.delegate?.task(self, didCompleteWithData: "click")
+        self.delegate?.task(self, didCompleteWithData: ["ad": splashAd, "info": "click"])
     }
     
     public func splashAdDidClickSkip(_ splashAd: BUSplashAdView) {
-        self.delegate?.task(self, didCompleteWithData: "skip")
+        self.delegate?.task(self, didCompleteWithData: ["ad": splashAd, "info": "skip"])
     }
     
     public func splashAdDidClose(_ splashAd: BUSplashAdView) {
-        self.delegate?.task(self, didCompleteWithData: "close")
+        self.delegate?.task(self, didCompleteWithData: ["ad": splashAd, "info": "close"])
     }
     
     public func splashAd(_ splashAd: BUSplashAdView, didFailWithError error: Error?) {
         self.delegate?.task(self, didCompleteWithError: (error as NSError?) ?? NSError(domain: "com.pangle.task.intersitial.ad.fail", code: -1, userInfo: nil))
+    }
+    
+    public func splashAdCountdown(toZero splashAd: BUSplashAdView) {
+        self.delegate?.task(self, didCompleteWithData: ["ad": splashAd, "info": "count down"])
     }
 }
 

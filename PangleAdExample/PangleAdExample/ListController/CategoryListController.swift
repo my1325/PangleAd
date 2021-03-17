@@ -33,6 +33,9 @@ internal final class CategoryListController: BaseViewController {
         super.viewDidLoad()
         
         title = "Pangle AD"
+        
+        navigationItem.leftBarButtonItem = nil
+        
         let dataSource = RxTableViewSectionedReloadDataSource<ADCategory>(configureCell: { dataSource, tableView, indexPath, item in
             let cell: CategoryListCell = tableView.ge.dequeueReusableCell()
             cell.titleLabel.text = item.rawValue
@@ -49,6 +52,15 @@ internal final class CategoryListController: BaseViewController {
     }
     
     func handleSelectItem(_ item: (adCategory: ADCategory, item: ADList)) {
-        
+        let _category: AdLoadController.Category
+        switch item.adCategory {
+        case .default:
+            _category = .default
+        case .express:
+            _category = .express
+        }
+        let controller = AdLoadController(ad: item.item, category: _category)
+        controller.title = String(format: "%@-%@", item.adCategory.name, item.item.rawValue)
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

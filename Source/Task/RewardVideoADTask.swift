@@ -136,8 +136,6 @@ public final class ExpressRewardVideoADTask: NSObject, TaskCompatible {
 
 extension ExpressRewardVideoADTask: BUNativeExpressRewardedVideoAdDelegate {
     public func nativeExpressRewardedVideoAdDidLoad(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
-//            let vc = AppUtil.getVC()
-//            rewardedVideoAd.show(fromRootViewController: vc)
         self.delegate?.task(self, adDidLoad: _ad)
     }
     
