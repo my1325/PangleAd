@@ -12,11 +12,11 @@ public final class DefaultTaskFactory: TaskFactory {
     public override func prepareFor(_ ad: ADCompatble) -> TaskCompatible {
         guard let _ad = ad as? DefaultADs else { return NoneTask() }
         switch _ad {
-        case let .splash(_, slotId, frame, tolerateTimeout, hideSkipButton):
+        case let .splash(slotId, frame, tolerateTimeout, hideSkipButton):
             return SplashADTask(slotId, frame: frame, tolerateTimeout: tolerateTimeout, hideSkipButton: hideSkipButton, ad: _ad)
-        case let .rewardVideo(_, slotId, userId, rewardName, rewardAmount, extra):
+        case let .rewardVideo(slotId, userId, rewardName, rewardAmount, extra):
             return RewardVideoADTask(slotId, userId: userId, rewardName: rewardName, rewardAmount: rewardAmount, extra: extra, ad: _ad)
-        case let .feed(_, slotId, imageSize, count):
+        case let .feed(slotId, imageSize, count):
             return NativeADTask(slotId, imageSize: imageSize.rawValue, count: count, ad: _ad)
         }
     }

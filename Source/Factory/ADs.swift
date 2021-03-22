@@ -28,21 +28,14 @@ public enum ImageSize: Int {
 }
 
 public enum DefaultADs {
-    case splash(method: LoadMethod, slotId: String, frame: CGRect, tolerateTimeout: Double?, hideSkipButton: Bool?)
-    case rewardVideo(method: LoadMethod, slotId: String, userId: String, rewardName: String?, rewardAmount: Int?, extra: String?)
-    case feed(method: LoadMethod, slotId: String, imageSize: ImageSize, count: Int = 1)
+    case splash(slotId: String, frame: CGRect, tolerateTimeout: Double?, hideSkipButton: Bool?)
+    case rewardVideo(slotId: String, userId: String, rewardName: String?, rewardAmount: Int?, extra: String?)
+    case feed(slotId: String, imageSize: ImageSize, count: Int = 1)
 }
 
 extension DefaultADs: ADCompatble {
     public var taskFactoryCategory: TaskFactoryCategory {
         return .default
-    }
-    
-    public var method: LoadMethod {
-        switch self {
-        case let .splash(method, _, _, _, _), let .feed(method, _, _, _), let .rewardVideo(method, _, _, _, _, _):
-            return method
-        }
     }
     
     public var category: ADCategory {
@@ -58,23 +51,16 @@ extension DefaultADs: ADCompatble {
 }
 
 public enum ExpressADs {
-    case rewardVideo(method: LoadMethod, slotId: String, userId: String, rewardName: String?, rewardAmount: Int?, extra: String?)
-    case feed(method: LoadMethod, slotId: String, imageSize: ImageSize, count: Int = 1, width: Double, height: Double)
-    case interstitial(method: LoadMethod, slotId: String, width: Double, height: Double)
-    case fullScreen(method: LoadMethod, slotId: String)
-    case banner(method: LoadMethod, slotId: String, interval: Int?, width: Double, height: Double, vc: UIViewController)
+    case rewardVideo(slotId: String, userId: String, rewardName: String?, rewardAmount: Int?, extra: String?)
+    case feed(slotId: String, imageSize: ImageSize, count: Int = 1, width: Double, height: Double)
+    case interstitial(slotId: String, width: Double, height: Double)
+    case fullScreen(slotId: String)
+    case banner(slotId: String, interval: Int?, width: Double, height: Double, vc: UIViewController)
 }
 
 extension ExpressADs: ADCompatble {
     public var taskFactoryCategory: TaskFactoryCategory {
         return .default
-    }
-    
-    public var method: LoadMethod {
-        switch self {
-        case let .feed(method, _, _, _, _, _), let .fullScreen(method, _), let .interstitial(method, _, _, _), let .rewardVideo(method, _, _, _, _, _), let .banner(method, _, _, _, _, _):
-            return method
-        }
     }
     
     public var category: ADCategory {

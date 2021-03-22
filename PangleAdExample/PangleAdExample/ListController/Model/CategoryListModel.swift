@@ -42,7 +42,7 @@ enum ADCategory: SectionModelType {
     }
     
     static let defaultModelList: [ADCategory] = [
-        .default(adList: [.splash, .fullscreen, .videoReward, .feed]),
+        .default(adList: [.splash, .videoReward, .feed]),
         .express(adList: [.splash, .fullscreen, .videoReward, .feed, .intersitial])
     ]
 }

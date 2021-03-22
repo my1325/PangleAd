@@ -12,28 +12,10 @@ import ADManager
 import BUAdSDK
 
 internal class AdLoadController: BaseViewController {
-    private lazy var preloadButton: UIButton = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setTitle("preload", for: .normal)
-        $0.setTitleColor(UIColor.ge.color(with: "ffffff"), for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
-        $0.backgroundColor = UIColor.green
-        $0.setBackgroundImage(UIImage.ge.image(withColor: UIColor.red, size: CGSize(width: 50, height: 30)), for: .normal)
-        $0.layer.cornerRadius = 8
-        $0.clipsToBounds = true
-        self.view.addSubview($0)
-        $0.snp.makeConstraints { make in
-            make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.top.equalTo(150)
-            make.width.equalTo(100)
-            make.height.equalTo(30)
-        }
-        return $0
-    }(UIButton(type: .custom))
 
     private lazy var immediatelyButton: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setTitle("immediately", for: .normal)
+        $0.setTitle("load", for: .normal)
         $0.setTitleColor(UIColor.ge.color(with: "ffffff"), for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
         $0.setBackgroundImage(UIImage.ge.image(withColor: UIColor.red, size: CGSize(width: 50, height: 30)), for: .normal)
@@ -43,7 +25,7 @@ internal class AdLoadController: BaseViewController {
         self.view.addSubview($0)
         $0.snp.makeConstraints { make in
             make.centerX.equalTo(self.view.snp.centerX).offset(0)
-            make.top.equalTo(self.preloadButton.snp.bottom).offset(30)
+            make.centerY.equalTo(self.view.snp.centerY).offset(0)
             make.width.equalTo(100)
             make.height.equalTo(30)
         }
@@ -70,22 +52,9 @@ internal class AdLoadController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        preloadButton.ge.tap { [weak self] _ in
-            self?.handlePreloadAction()
-        }
-        
         immediatelyButton.ge.tap { [weak self] _ in
             self?.handleImmediatelyAction()
         }
-    }
-    
-    func handlePreloadAction() {
-        let ad = preloadAd()
-        ADManager.shared.requestPangleAd(ad, adDidLoad: { [weak self] in
-            self?.handleAd(ad, didLoadWithData: $0)
-        }, complete: { [weak self] in
-            self?.handleAdDidComplete(ad, $0)
-        })
     }
     
     func handleImmediatelyAction() {
@@ -97,51 +66,42 @@ internal class AdLoadController: BaseViewController {
         })
     }
     
-    private func preloadAd() -> ADCompatble {
-        switch category {
-        case .default:
-            return defaultAd(.preload)
-        case .express:
-            return expressAd(.preload)
-        }
-    }
-    
     private func immediatelyAd() -> ADCompatble {
         switch category {
         case .default:
-            return defaultAd(.immediately)
+            return defaultAd()
         case .express:
-            return expressAd(.immediately)
+            return expressAd()
         }
     }
     
-    private func defaultAd(_ loadMethod: LoadMethod) -> DefaultADs {
+    private func defaultAd() -> DefaultADs {
         switch ad {
         case .splash:
-            return .splash(method: loadMethod, slotId: kSplashId, frame: UIScreen.main.bounds, tolerateTimeout: nil, hideSkipButton: nil)
+            return .splash(slotId: kSplashId, frame: UIScreen.main.bounds, tolerateTimeout: nil, hideSkipButton: nil)
         case .fullscreen, .intersitial, .banner:
             fatalError("not support ad \(ad)")
         case .videoReward:
-            return .rewardVideo(method: loadMethod, slotId: kRewardedVideoId, userId: "", rewardName: nil, rewardAmount: nil, extra: nil)
+            return .rewardVideo(slotId: kRewardedVideoId, userId: "", rewardName: nil, rewardAmount: nil, extra: nil)
         case .feed:
-            return .feed(method: loadMethod, slotId: kFeedId, imageSize: .feed228_150, count: 3)
+            return .feed(slotId: kFeedId, imageSize: .feed228_150, count: 3)
         }
     }
     
-    private func expressAd(_ loadMethod: LoadMethod) -> ExpressADs {
+    private func expressAd() -> ExpressADs {
         switch ad {
         case .splash:
             fatalError("not support ad \(ad)")
         case .fullscreen:
-            return .fullScreen(method: loadMethod, slotId: kSplashId)
+            return .fullScreen(slotId: kSplashId)
         case .videoReward:
-            return .rewardVideo(method: loadMethod, slotId: kRewardedVideoExpressId, userId: "", rewardName: nil, rewardAmount: nil, extra: nil)
+            return .rewardVideo(slotId: kRewardedVideoExpressId, userId: "", rewardName: nil, rewardAmount: nil, extra: nil)
         case .feed:
-            return .feed(method: loadMethod, slotId: kFeedVideoExpressId, imageSize: .feed690_388, count: 3, width: 375, height: 284)
+            return .feed(slotId: kFeedVideoExpressId, imageSize: .feed690_388, count: 3, width: 375, height: 284)
         case .intersitial:
-            return .interstitial(method: loadMethod, slotId: kInterstitialExpressId, width: 345, height: 207)
+            return .interstitial(slotId: kInterstitialExpressId, width: 345, height: 207)
         case .banner:
-            return .banner(method: loadMethod, slotId: kBannerExpressId, interval: nil, width: 375, height: 125, vc: self)
+            return .banner(slotId: kBannerExpressId, interval: nil, width: 375, height: 125, vc: self)
         }
     }
 }
@@ -179,7 +139,7 @@ extension AdLoadController {
         
     }
     
-    private func handleAdDidComplete(_ ad: ADCompatble, _ result: Result<Any?, Error>) {
+    private func handleAdDidComplete(_ ad: ADCompatble, _ result: Result<Any?, NSError>) {
         if let _ad = ad as? DefaultADs {
             handleDefaultADComplete(_ad, result)
         } else if let _ad = ad as? ExpressADs {
@@ -189,7 +149,7 @@ extension AdLoadController {
         }
     }
     
-    private func handleDefaultADComplete(_ ad: DefaultADs, _ result: Result<Any?, Error>) {
+    private func handleDefaultADComplete(_ ad: DefaultADs, _ result: Result<Any?, NSError>) {
         switch (ad, result) {
         case (.feed, .success(let data)):
             let _data = data as! [BUNativeExpressAdView]
@@ -199,8 +159,9 @@ extension AdLoadController {
                 ad.removeFromSuperview()
             }
         case (.rewardVideo, .success(let data)):
-            let _ad = data as! BURewardedVideoAd
-            _ad.show(fromRootViewController: self)
+            if let userInfo = data as? [String: Any], let _ad = userInfo["ad"] as? BURewardedVideoAd {
+                _ad.show(fromRootViewController: self)
+            }
         case (_, .failure(let error)):
             print("\(ad) complete with Error \(error)")
         default:
@@ -208,7 +169,7 @@ extension AdLoadController {
         }
     }
     
-    private func handleDefaultExpressAdComplete(_ ad: ExpressADs, _ result: Result<Any?, Error>) {
+    private func handleDefaultExpressAdComplete(_ ad: ExpressADs, _ result: Result<Any?, NSError>) {
         
     }
 }

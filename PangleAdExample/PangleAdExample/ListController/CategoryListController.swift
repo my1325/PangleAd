@@ -46,7 +46,7 @@ internal final class CategoryListController: BaseViewController {
         
         Observable.just(ADCategory.defaultModelList).bind(to: tableView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
         
-        Observable.combineLatest(tableView.rx.itemSelected.map({ dataSource[$0.section] }), tableView.rx.modelSelected(ADList.self))
+        Observable.zip(tableView.rx.itemSelected.map({ dataSource[$0.section] }), tableView.rx.modelSelected(ADList.self))
             .subscribe(onNext: handleSelectItem)
             .disposed(by: disposeBag)
     }

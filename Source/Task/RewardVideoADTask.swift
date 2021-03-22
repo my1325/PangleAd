@@ -65,7 +65,7 @@ extension RewardVideoADTask: BURewardedVideoAdDelegate {
     }
     
     public func rewardedVideoAdDidClose(_ rewardedVideoAd: BURewardedVideoAd) {
-        self.delegate?.task(self, didCompleteWithData: self.verify)
+        self.delegate?.task(self, didCompleteWithData: ["ad": rewardedVideoAd, "verify": verify])
     }
     
     public func rewardedVideoAd(_ rewardedVideoAd: BURewardedVideoAd, didFailWithError error: Error?) {

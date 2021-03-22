@@ -12,7 +12,7 @@ import PangleAd
 extension ADManager {
     
     @discardableResult
-    public func requestPangleAd(_ ad: ADCompatble, adDidLoad: ((Any?) -> Void)?, complete: ((Result<Any?, Error>) -> Void)?) -> TaskCompatible {
+    public func requestPangleAd(_ ad: ADCompatble, adDidLoad: ((Any?) -> Void)?, complete: ((Result<Any?, NSError>) -> Void)?) -> TaskCompatible {
         if let _ad = ad as? DefaultADs {
             let defaultFactory = defaultPangleAdTaskFactory(.default, initialFactory: DefaultTaskFactory())
             return defaultFactory.requestAd(_ad, adDidLoad, complete: complete)
