@@ -140,7 +140,7 @@ extension ExpressRewardVideoADTask: BUNativeExpressRewardedVideoAdDelegate {
     }
     
     public func nativeExpressRewardedVideoAdDidClose(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
-        self.delegate?.task(self, didCompleteWithData: self.verify)
+        self.delegate?.task(self, didCompleteWithData: ["ad": rewardedVideoAd, "verify": verify])
     }
     
     public func nativeExpressRewardedVideoAd(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, didFailWithError error: Error?) {

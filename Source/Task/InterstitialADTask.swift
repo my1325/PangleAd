@@ -63,6 +63,6 @@ extension IntersitialADTask: BUNativeExpresInterstitialAdDelegate {
     }
     
     public func nativeExpresInterstitialAdDidClose(_ interstitialAd: BUNativeExpressInterstitialAd) {
-        self.delegate?.task(self, didCompleteWithData: nil)
+        self.delegate?.task(self, didCompleteWithData: ["ad": interstitialAd])
     }
 }

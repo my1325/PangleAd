@@ -122,15 +122,15 @@ public final class ExpressSplashADTask: NSObject, TaskCompatible {
 
 extension ExpressSplashADTask: BUNativeExpressSplashViewDelegate {
     public func nativeExpressSplashViewDidClick(_ splashAdView: BUNativeExpressSplashView) {
-        self.delegate?.task(self, didCompleteWithData: "click")
+        self.delegate?.task(self, didCompleteWithData: ["ad": splashAdView, "info": "click"])
     }
     
     public func nativeExpressSplashViewDidClickSkip(_ splashAdView: BUNativeExpressSplashView) {
-        self.delegate?.task(self, didCompleteWithData: "skip")
+        self.delegate?.task(self, didCompleteWithData: ["ad": splashAdView, "info": "skip"])
     }
     
     public func nativeExpressSplashViewDidClose(_ splashAdView: BUNativeExpressSplashView) {
-        self.delegate?.task(self, didCompleteWithData: "timeover")
+        self.delegate?.task(self, didCompleteWithData: ["ad": splashAdView, "info": "close"])
     }
     
     public func nativeExpressSplashView(_ splashAdView: BUNativeExpressSplashView, didFailWithError error: Error?) {

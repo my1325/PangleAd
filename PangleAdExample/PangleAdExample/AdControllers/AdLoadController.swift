@@ -93,7 +93,7 @@ internal class AdLoadController: BaseViewController {
         case .splash:
             fatalError("not support ad \(ad)")
         case .fullscreen:
-            return .fullScreen(slotId: kSplashId)
+            return .fullScreen(slotId: kFullscreenVideoExpressId)
         case .videoReward:
             return .rewardVideo(slotId: kRewardedVideoExpressId, userId: "", rewardName: nil, rewardAmount: nil, extra: nil)
         case .feed:
@@ -122,7 +122,7 @@ extension AdLoadController {
         switch ad {
         case .feed where data is [BUNativeExpressAdView]:
             let _data = data as! [BUNativeExpressAdView]
-            /// TODO
+            navigationController?.pushViewController(LoadFeedAdController(_data), animated: true)
         case .splash where data is BUSplashAdView:
             let _splashView = data as! BUSplashAdView
             navigationController?.view.addSubview(_splashView)
@@ -136,7 +136,24 @@ extension AdLoadController {
     }
     
     private func handleExpressAd(_ ad: ExpressADs, didLoadWithData data: Any?) {
-        
+        switch ad {
+        case .rewardVideo where data is BUNativeExpressRewardedVideoAd:
+            let _ad = data as! BUNativeExpressRewardedVideoAd
+            _ad.show(fromRootViewController: self)
+        case .feed:
+            break
+        case .interstitial where data is BUNativeExpressInterstitialAd:
+            let _ad = data as! BUNativeExpressInterstitialAd
+            _ad.show(fromRootViewController: self)
+        case .fullScreen where data is BUNativeExpressFullscreenVideoAd:
+            let _ad = data as! BUNativeExpressFullscreenVideoAd
+            _ad.show(fromRootViewController: self)
+        case .banner where data is BUNativeExpressBannerView:
+            let _ad = data as! BUNativeExpressBannerView
+            view.addSubview(_ad)
+        default:
+            fatalError("not support ad \(ad)")
+        }
     }
     
     private func handleAdDidComplete(_ ad: ADCompatble, _ result: Result<Any?, NSError>) {
@@ -153,14 +170,14 @@ extension AdLoadController {
         switch (ad, result) {
         case (.feed, .success(let data)):
             let _data = data as! [BUNativeExpressAdView]
-            /// TODO
+            break
         case (.splash, .success(let data)) where data is [String: Any]:
             if let userInfo = data as? [String: Any], let ad = userInfo["ad"] as? BUSplashAdView {
-                ad.removeFromSuperview()
+//                ad.removeFromSuperview()
             }
         case (.rewardVideo, .success(let data)):
             if let userInfo = data as? [String: Any], let _ad = userInfo["ad"] as? BURewardedVideoAd {
-                _ad.show(fromRootViewController: self)
+//                _ad.show(fromRootViewController: self)
             }
         case (_, .failure(let error)):
             print("\(ad) complete with Error \(error)")
@@ -170,6 +187,29 @@ extension AdLoadController {
     }
     
     private func handleDefaultExpressAdComplete(_ ad: ExpressADs, _ result: Result<Any?, NSError>) {
-        
+        switch (ad, result) {
+        case (.feed, .success(let data)):
+            break
+        case (.rewardVideo, .success(let data)) where data is [String: Any]:
+            if let userInfo = data as? [String: Any], let ad = userInfo["ad"] as? BUNativeExpressRewardedVideoAd {
+//                ad.remove
+            }
+        case (.interstitial, .success(let data)) where data is [String: Any]:
+            if let userInfo = data as? [String: Any], let ad = userInfo["ad"] as? BUNativeExpressInterstitialAd {
+
+            }
+        case (.fullScreen, .success(let data)) where data is [String: Any]:
+            if let userInfo = data as? [String: Any], let ad = userInfo["ad"] as? BUNativeExpressFullscreenVideoAd {
+
+            }
+        case (.banner, .success(let data)) where data is [String: Any]:
+            if let userInfo = data as? [String: Any], let ad = userInfo["ad"] as? BUNativeExpressBannerView {
+                ad.removeFromSuperview()
+            }
+        case (_, .failure(let error)):
+            print("\(ad) complete with Error \(error)")
+        default:
+            fatalError("not support ad \(ad)")
+        }
     }
 }

@@ -107,15 +107,11 @@ public final class ExpressFullScreenAdTask: NSObject, TaskCompatible {
 
 extension ExpressFullScreenAdTask: BUNativeExpressFullscreenVideoAdDelegate {
     public func nativeExpressFullscreenVideoAdDidLoad(_ fullscreenVideoAd: BUNativeExpressFullscreenVideoAd) {
-//            let vc = AppUtil.getVC()
-//            fullscreenVideoAd.show(fromRootViewController: vc)
         self.delegate?.task(self, adDidLoad: _ad)
     }
     
     public func nativeExpressFullscreenVideoAdDidClose(_ fullscreenVideoAd: BUNativeExpressFullscreenVideoAd) {
-        if !isSkipped {
-            self.delegate?.task(self, didCompleteWithData: nil)
-        }
+        self.delegate?.task(self, didCompleteWithData: ["ad": fullscreenVideoAd, "info": isSkipped])
     }
     
     public func nativeExpressFullscreenVideoAdDidClickSkip(_ fullscreenVideoAd: BUNativeExpressFullscreenVideoAd) {
@@ -134,5 +130,7 @@ extension ExpressFullScreenAdTask: BUNativeExpressFullscreenVideoAdDelegate {
         self.delegate?.task(self, didCompleteWithError: (error as NSError?) ?? NSError(domain: "com.pangle.ad.task.full.screen.express.ad.fail", code: -1, userInfo: nil))
     }
     
-    public func nativeExpressFullscreenVideoAdDidPlayFinish(_ fullscreenVideoAd: BUNativeExpressFullscreenVideoAd, didFailWithError error: Error?) {}
+    public func nativeExpressFullscreenVideoAdDidPlayFinish(_ fullscreenVideoAd: BUNativeExpressFullscreenVideoAd, didFailWithError error: Error?) {
+        
+    }
 }

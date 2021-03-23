@@ -45,7 +45,6 @@ public final class ExpressBannerTask: NSObject, TaskCompatible {
     public func resume(_ delegate: TaskReumeResultDelegate) {
         self.delegate = delegate
         self._ad.loadAdData()
-        self.delegate?.task(self, adDidLoad: self._ad)
     }
     
     public func retry() -> Bool {
@@ -55,8 +54,7 @@ public final class ExpressBannerTask: NSObject, TaskCompatible {
 
 extension ExpressBannerTask: BUNativeExpressBannerViewDelegate {
     public func nativeExpressBannerAdViewDidLoad(_ bannerAdView: BUNativeExpressBannerView) {
-        let frame = bannerAdView.frame
-        delegate?.task(self, adDidLoad: frame)
+        delegate?.task(self, adDidLoad: bannerAdView)
     }
 
     public func nativeExpressBannerAdViewRenderFail(_ bannerAdView: BUNativeExpressBannerView, error: Error?) {
@@ -68,7 +66,7 @@ extension ExpressBannerTask: BUNativeExpressBannerViewDelegate {
     }
 
     public func nativeExpressBannerAdView(_ bannerAdView: BUNativeExpressBannerView, dislikeWithReason filterwords: [BUDislikeWords]?) {
-        delegate?.task(self, didCompleteWithData: filterwords)
+        delegate?.task(self, didCompleteWithData: ["ad": bannerAdView, "info": filterwords ?? []])
     }
 
     public func nativeExpressBannerAdViewRenderSuccess(_ bannerAdView: BUNativeExpressBannerView) {
