@@ -6,7 +6,6 @@ target 'PangleAdExample' do
   use_frameworks!
 
   # Pods for PangleAdExample
-  pod 'ADManager', :path=>'../../ADManager'
   pod 'PangleAd', :path=>'../'
 
   # Pods for Example 

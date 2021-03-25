@@ -7,7 +7,7 @@
 
 import Foundation
 import BUAdSDK
-import ADManager
+import GeADManager
 
 public final class IntersitialADTask: NSObject, TaskCompatible {
     public var identifier: String

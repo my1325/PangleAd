@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ADManager
+import GeADManager
 import BUAdSDK
 
 public final class RewardVideoADTask: NSObject, TaskCompatible {

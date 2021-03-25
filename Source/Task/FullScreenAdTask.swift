@@ -7,7 +7,7 @@
 
 import Foundation
 import BUAdSDK
-import ADManager
+import GeADManager
 
 public final class FullScreenAdTask: NSObject, TaskCompatible {
 

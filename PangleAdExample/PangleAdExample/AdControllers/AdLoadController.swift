@@ -8,7 +8,7 @@
 import UIKit
 import GeSwift
 import PangleAd
-import ADManager
+import GeADManager
 import BUAdSDK
 
 internal class AdLoadController: BaseViewController {

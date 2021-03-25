@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ADManager
+import GeADManager
 
 public final class DefaultTaskFactory: TaskFactory {
     public override func prepareFor(_ ad: ADCompatble) -> TaskCompatible {

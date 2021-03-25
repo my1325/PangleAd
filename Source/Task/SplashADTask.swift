@@ -5,7 +5,7 @@
 //  Created by my on 2021/3/12.
 //
 
-import ADManager
+import GeADManager
 import BUAdSDK
 import Foundation
 

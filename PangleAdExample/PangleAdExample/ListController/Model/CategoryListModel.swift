@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ADManager
+import GeADManager
 import PangleAd
 import RxDataSources
 

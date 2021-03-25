@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ADManager
+import GeADManager
 
 public extension TaskFactoryCategory {
     static let `default` = "com.pangle.ad.default.task.factory"
