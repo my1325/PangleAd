@@ -50,11 +50,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let navigationBar = UINavigationBar.appearance()
         
-        navigationBar.tintColor = UIColor.ge.color(with: "333333")
+        navigationBar.tintColor = UIColor.ge.color(with: "333333", transparency: 1)!
         if #available(iOS 13.0, *) {
             let appearence = UINavigationBarAppearance()
             appearence.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 16, weight: .medium)]
-            appearence.buttonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.ge.color(with: "333333"), .font: UIFont.systemFont(ofSize: 13, weight: .regular)]
+            appearence.buttonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.ge.color(with: "333333", transparency: 1)!, .font: UIFont.systemFont(ofSize: 13, weight: .regular)]
 
             appearence.backgroundColor = UIColor.white
             appearence.shadowImage = nil
@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             navigationBar.standardAppearance = appearence
         } else {
             // Fallback on earlier versions
-            navigationBar.titleTextAttributes = [.foregroundColor: UIColor.ge.color(with: "333333"), .font: UIFont.systemFont(ofSize: 16, weight: .medium)]
+            navigationBar.titleTextAttributes = [.foregroundColor: UIColor.ge.color(with: "333333", transparency: 1)!, .font: UIFont.systemFont(ofSize: 16, weight: .medium)]
             navigationBar.shadowImage = UIImage()
             navigationBar.barTintColor = UIColor.white
             navigationBar.backgroundColor = UIColor.white

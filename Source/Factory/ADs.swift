@@ -60,7 +60,7 @@ public enum ExpressADs {
 
 extension ExpressADs: ADCompatble {
     public var taskFactoryCategory: TaskFactoryCategory {
-        return .default
+        return .express
     }
     
     public var category: ADCategory {

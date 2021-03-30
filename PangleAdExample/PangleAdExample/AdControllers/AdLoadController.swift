@@ -16,7 +16,7 @@ internal class AdLoadController: BaseViewController {
     private lazy var immediatelyButton: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setTitle("load", for: .normal)
-        $0.setTitleColor(UIColor.ge.color(with: "ffffff"), for: .normal)
+        $0.setTitleColor(UIColor.ge.color(with: "ffffff", transparency: 1), for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
         $0.setBackgroundImage(UIImage.ge.image(withColor: UIColor.red, size: CGSize(width: 50, height: 30)), for: .normal)
         $0.setBackgroundImage(UIImage.ge.image(withColor: UIColor.lightGray, size: CGSize(width: 50, height: 30)), for: .disabled)
@@ -173,7 +173,7 @@ extension AdLoadController {
             break
         case (.splash, .success(let data)) where data is [String: Any]:
             if let userInfo = data as? [String: Any], let ad = userInfo["ad"] as? BUSplashAdView {
-//                ad.removeFromSuperview()
+                ad.removeFromSuperview()
             }
         case (.rewardVideo, .success(let data)):
             if let userInfo = data as? [String: Any], let _ad = userInfo["ad"] as? BURewardedVideoAd {

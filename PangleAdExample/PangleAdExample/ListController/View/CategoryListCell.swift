@@ -12,7 +12,7 @@ internal final class CategoryListCell: UITableViewCell, Reusable {
     internal lazy var titleLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = .left
-        $0.textColor = UIColor.ge.color(with: "333333")
+        $0.textColor = UIColor.ge.color(with: "333333", transparency: 1)
         $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         self.contentView.addSubview($0)
         $0.snp.makeConstraints { make in

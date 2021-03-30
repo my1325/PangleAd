@@ -1,21 +1,21 @@
 PODS:
-  - Ads-CN (3.4.2.8):
-    - Ads-CN/BUAdSDK (= 3.4.2.8)
-  - Ads-CN/BUAdSDK (3.4.2.8):
+  - Ads-CN (3.4.4.3):
+    - Ads-CN/BUAdSDK (= 3.4.4.3)
+  - Ads-CN/BUAdSDK (3.4.4.3):
     - Ads-CN/BUFoundation
     - Ads-CN/Domestic
-  - Ads-CN/BUFoundation (3.4.2.8)
-  - Ads-CN/Domestic (3.4.2.8)
-  - Differentiator (4.0.1)
+  - Ads-CN/BUFoundation (3.4.4.3)
+  - Ads-CN/Domestic (3.4.4.3)
+  - Differentiator (5.0.0)
   - GeADManager (0.0.1)
-  - GeSwift (0.0.9):
-    - GeSwift/Core (= 0.0.9)
-    - GeSwift/Foundation (= 0.0.9)
-    - GeSwift/UI (= 0.0.9)
-  - GeSwift/Core (0.0.9)
-  - GeSwift/Foundation (0.0.9):
+  - GeSwift (0.1.1):
+    - GeSwift/Core (= 0.1.1)
+    - GeSwift/Foundation (= 0.1.1)
+    - GeSwift/UI (= 0.1.1)
+  - GeSwift/Core (0.1.1)
+  - GeSwift/Foundation (0.1.1):
     - GeSwift/Core
-  - GeSwift/UI (0.0.9):
+  - GeSwift/UI (0.1.1):
     - GeSwift/Core
     - GeSwift/Foundation
   - PangleAd (0.0.1):
@@ -24,16 +24,16 @@ PODS:
   - PangleAd/cn (0.0.1):
     - Ads-CN (~> 3.4)
     - GeADManager
-  - RxCocoa (5.1.1):
-    - RxRelay (~> 5)
-    - RxSwift (~> 5)
-  - RxDataSources (4.0.1):
-    - Differentiator (~> 4.0)
-    - RxCocoa (~> 5.0)
-    - RxSwift (~> 5.0)
-  - RxRelay (5.1.1):
-    - RxSwift (~> 5)
-  - RxSwift (5.1.1)
+  - RxCocoa (6.1.0):
+    - RxRelay (= 6.1.0)
+    - RxSwift (= 6.1.0)
+  - RxDataSources (5.0.0):
+    - Differentiator (~> 5.0)
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxRelay (6.1.0):
+    - RxSwift (= 6.1.0)
+  - RxSwift (6.1.0)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
@@ -60,15 +60,15 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Ads-CN: 5055041248e93cd9b763023d32a12f3690d8b872
-  Differentiator: 886080237d9f87f322641dedbc5be257061b0602
+  Ads-CN: 57285da091f6a9035b78114c817f7e7fde8bff94
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   GeADManager: 5782325ca7f6374d8cd3dbc82dc0f9f0b36c7627
-  GeSwift: 0ad79fc80fcc80f05804a42dccda1d3819bdb015
-  PangleAd: b0aec4671f61722e0118a915d8bfb97206aef30a
-  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
-  RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
-  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
-  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  GeSwift: 7164345a0506a27d94c4969658592308feb66002
+  PangleAd: c16b07b26be1e5475db319bb1fa9b727d06d41c4
+  RxCocoa: 5c51f02d562cbd94629f6c26cf0c80fe4ab8d343
+  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
+  RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
+  RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
 PODFILE CHECKSUM: 9876e51ba28622b55667f6a65f32f9203e6f8145
